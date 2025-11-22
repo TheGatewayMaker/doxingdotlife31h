@@ -18,22 +18,33 @@ export const handleUpload: RequestHandler = async (req, res) => {
   try {
     const { title, description, country, city, server } =
       req.body as UploadRequest;
-    const file = req.file;
+    const files = req.files as { [fieldname: string]: Express.Multer.File[] } | undefined;
 
-    if (!title || !description || !file) {
+    if (!title || !description || !files?.media || !files?.thumbnail) {
       res.status(400).json({ error: "Missing required fields" });
       return;
     }
 
+    const mediaFile = files.media[0];
+    const thumbnailFile = files.thumbnail[0];
+
     const postId = Date.now().toString();
-    const mediaFileName = file.originalname || `${Date.now()}-media`;
+    const mediaFileName = mediaFile.originalname || `${Date.now()}-media`;
+    const thumbnailFileName = thumbnailFile.originalname || `${Date.now()}-thumbnail`;
 
     try {
       const mediaUrl = await uploadMediaFile(
         postId,
         mediaFileName,
-        file.buffer,
-        file.mimetype || "application/octet-stream",
+        mediaFile.buffer,
+        mediaFile.mimetype || "application/octet-stream",
+      );
+
+      const thumbnailUrl = await uploadMediaFile(
+        postId,
+        thumbnailFileName,
+        thumbnailFile.buffer,
+        thumbnailFile.mimetype || "image/jpeg",
       );
 
       const postMetadata = {
@@ -43,7 +54,8 @@ export const handleUpload: RequestHandler = async (req, res) => {
         country: country || "",
         city: city || "",
         server: server || "",
-        mediaFiles: [mediaFileName],
+        thumbnail: thumbnailUrl,
+        mediaFiles: [{ name: mediaFileName, url: mediaUrl, type: mediaFile.mimetype || "application/octet-stream" }],
         createdAt: new Date().toISOString(),
       };
 
