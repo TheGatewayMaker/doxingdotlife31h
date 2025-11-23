@@ -23,32 +23,32 @@ export default function DoxAnyone() {
           </div>
 
           {/* Pricing Section */}
-          <div className="bg-card border-2 border-border rounded-xl p-8 mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-foreground">
+          <div className="bg-card border-2 border-border rounded-lg sm:rounded-xl p-6 sm:p-8 mb-10 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 text-foreground">
               Service Pricing
             </h2>
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div className="bg-muted/50 rounded-lg p-6 border border-border">
-                <p className="text-sm font-semibold text-accent mb-2">PAKISTAN</p>
-                <p className="text-3xl font-black text-foreground">299</p>
-                <p className="text-sm text-muted-foreground">PKR</p>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-6">
+              <div className="bg-muted/50 rounded-lg p-5 sm:p-6 border border-border">
+                <p className="text-xs sm:text-sm font-semibold text-accent mb-2">PAKISTAN</p>
+                <p className="text-2xl sm:text-3xl font-black text-foreground">299</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">PKR</p>
               </div>
-              <div className="bg-muted/50 rounded-lg p-6 border border-border">
-                <p className="text-sm font-semibold text-accent mb-2">UNITED STATES</p>
-                <p className="text-3xl font-black text-foreground">1.10</p>
-                <p className="text-sm text-muted-foreground">USD</p>
+              <div className="bg-muted/50 rounded-lg p-5 sm:p-6 border border-border">
+                <p className="text-xs sm:text-sm font-semibold text-accent mb-2">UNITED STATES</p>
+                <p className="text-2xl sm:text-3xl font-black text-foreground">1.10</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">USD</p>
               </div>
-              <div className="bg-muted/50 rounded-lg p-6 border border-border">
-                <p className="text-sm font-semibold text-accent mb-2">INDIA</p>
-                <p className="text-3xl font-black text-foreground">99</p>
-                <p className="text-sm text-muted-foreground">INR</p>
+              <div className="bg-muted/50 rounded-lg p-5 sm:p-6 border border-border">
+                <p className="text-xs sm:text-sm font-semibold text-accent mb-2">INDIA</p>
+                <p className="text-2xl sm:text-3xl font-black text-foreground">99</p>
+                <p className="text-xs sm:text-sm text-muted-foreground">INR</p>
               </div>
             </div>
           </div>
 
           {/* Instructions Section */}
-          <div className="bg-card border-2 border-border rounded-xl p-8 mb-12">
-            <h2 className="text-2xl font-bold mb-6 text-foreground">
+          <div className="bg-card border-2 border-border rounded-lg sm:rounded-xl p-6 sm:p-8 mb-10 sm:mb-12">
+            <h2 className="text-xl sm:text-2xl font-bold mb-5 sm:mb-6 text-foreground">
               How It Works
             </h2>
             <div className="space-y-6">
