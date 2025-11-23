@@ -316,3 +316,68 @@ export const getPostWithThumbnail = async (
     thumbnail,
   };
 };
+
+export const deleteMediaFile = async (
+  postId: string,
+  fileName: string,
+): Promise<void> => {
+  const client = getR2Client();
+  const bucketName = getBucketName();
+  const key = `posts/${postId}/${fileName}`;
+
+  await client.send(
+    new DeleteObjectCommand({
+      Bucket: bucketName,
+      Key: key,
+    }),
+  );
+
+  const metadata = await getPostMetadata(postId);
+  if (metadata && metadata.mediaFiles) {
+    const updatedMediaFiles = metadata.mediaFiles.filter((f) => f !== fileName);
+    const updatedMetadata: PostMetadata = {
+      ...metadata,
+      mediaFiles: updatedMediaFiles,
+    };
+    await uploadPostMetadata(postId, updatedMetadata);
+  }
+};
+
+export const deletePostFolder = async (postId: string): Promise<void> => {
+  const client = getR2Client();
+  const bucketName = getBucketName();
+
+  const files = await listPostFiles(postId);
+  files.push("metadata.json");
+
+  for (const file of files) {
+    const key = `posts/${postId}/${file}`;
+    await client.send(
+      new DeleteObjectCommand({
+        Bucket: bucketName,
+        Key: key,
+      }),
+    );
+  }
+};
+
+export const updatePostMetadataField = async (
+  postId: string,
+  updates: Partial<PostMetadata>,
+): Promise<PostMetadata | null> => {
+  const metadata = await getPostMetadata(postId);
+  if (!metadata) {
+    return null;
+  }
+
+  const updatedMetadata: PostMetadata = {
+    ...metadata,
+    ...updates,
+    id: metadata.id,
+    createdAt: metadata.createdAt,
+    mediaFiles: metadata.mediaFiles,
+  };
+
+  await uploadPostMetadata(postId, updatedMetadata);
+  return updatedMetadata;
+};

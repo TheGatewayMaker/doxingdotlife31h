@@ -45,6 +45,12 @@ export default function Header() {
           >
             🔍 Dox Anyone
           </Link>
+          <Link
+            to="/admin-panel"
+            className="flex items-center gap-2 text-sm font-semibold text-muted-foreground hover:text-accent transition-colors"
+          >
+            ⚙️ Admin
+          </Link>
         </nav>
 
         {/* Mobile Menu Button */}
@@ -85,6 +91,13 @@ export default function Header() {
                   className="flex items-center gap-3 w-full px-4 py-3 text-accent font-semibold hover:bg-accent/10 rounded-lg transition-colors bg-accent/5"
                 >
                   🔍 Dox Anyone
+                </Link>
+                <Link
+                  to="/admin-panel"
+                  onClick={closeSidebar}
+                  className="flex items-center gap-3 w-full px-4 py-3 text-foreground font-semibold hover:bg-muted rounded-lg transition-colors"
+                >
+                  ⚙️ Admin Panel
                 </Link>
               </nav>
             </div>

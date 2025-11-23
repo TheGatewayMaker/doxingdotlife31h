@@ -6,6 +6,11 @@ import { handleDemo } from "./routes/demo";
 import { handleUpload } from "./routes/upload";
 import { handleGetPosts } from "./routes/posts";
 import { handleGetServers } from "./routes/servers";
+import {
+  handleDeletePost,
+  handleDeleteMediaFile,
+  handleUpdatePost,
+} from "./routes/admin";
 
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -21,7 +26,7 @@ export function createServer() {
   app.use(
     cors({
       origin: "*",
-      methods: ["GET", "POST", "OPTIONS"],
+      methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: false,
     }),
@@ -62,6 +67,11 @@ export function createServer() {
   );
   app.get("/api/posts", handleGetPosts);
   app.get("/api/servers", handleGetServers);
+
+  // Admin routes
+  app.delete("/api/posts/:postId", handleDeletePost);
+  app.delete("/api/posts/:postId/media/:fileName", handleDeleteMediaFile);
+  app.put("/api/posts/:postId", handleUpdatePost);
 
   // Media proxy endpoint for additional CORS support
   app.get("/api/media/:postId/:fileName", async (req, res) => {
