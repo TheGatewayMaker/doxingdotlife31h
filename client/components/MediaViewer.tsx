@@ -96,6 +96,7 @@ export default function MediaViewer({
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 mb-8">
           {mediaFiles.map((file, idx) => {
             const isVideo = file.type.startsWith("video/");
+            const isAudio = file.type.startsWith("audio/");
             return (
               <button
                 key={idx}
@@ -105,12 +106,11 @@ export default function MediaViewer({
                     setLightboxOpen(true);
                   }
                 }}
-                className={`relative group rounded-lg overflow-hidden border-2 transition-all hover:border-accent ${
-                  activeIndex === idx && lightboxOpen
+                className={`relative group rounded-lg overflow-hidden border-2 transition-all hover:border-accent cursor-pointer ${
+                  activeIndex === idx
                     ? "border-accent"
                     : "border-border"
-                } ${isVideo ? "cursor-default" : "cursor-pointer"}`}
-                disabled={isVideo}
+                }`}
               >
                 {file.type.startsWith("image/") ? (
                   <>
