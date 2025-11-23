@@ -96,10 +96,11 @@ export function createServer() {
         "Cache-Control": "public, max-age=31536000",
       });
 
-      if (response.body) {
-        response.body.pipeTo(res as any);
+      if (response.ok && response.body) {
+        const buffer = await response.arrayBuffer();
+        res.send(Buffer.from(buffer));
       } else {
-        res.status(500).json({ error: "No response body" });
+        res.status(response.status || 500).json({ error: "Failed to fetch media" });
       }
     } catch (err) {
       console.error("Media proxy error:", err);
