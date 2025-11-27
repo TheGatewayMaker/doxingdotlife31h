@@ -84,6 +84,21 @@ export default function PostDetail() {
     );
   }
 
+  if (showNSFWWarning && !nsfwApproved && post.nsfw) {
+    return (
+      <div className="min-h-screen bg-background text-foreground flex flex-col animate-fadeIn">
+        <Header />
+        <main className="flex-1 w-full flex items-center justify-center p-4">
+          <NSFWWarningModal
+            onProceed={() => setNsfwApproved(true)}
+            onGoBack={() => navigate("/")}
+          />
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   return (
     <div className="min-h-screen bg-background text-foreground flex flex-col animate-fadeIn">
       <Header />
@@ -111,7 +126,11 @@ export default function PostDetail() {
 
           {/* Post Content */}
           <div
-            className="bg-card border border-border rounded-xl overflow-hidden shadow-lg animate-fadeIn"
+            className={`rounded-xl overflow-hidden shadow-lg animate-fadeIn ${
+              post.nsfw
+                ? "bg-gradient-to-br from-red-900/50 to-red-800/50 border border-red-600"
+                : "bg-card border border-border"
+            }`}
             style={{ animationDelay: "0.1s" }}
           >
             {/* Thumbnail */}
