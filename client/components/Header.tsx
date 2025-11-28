@@ -93,7 +93,7 @@ export default function Header() {
 
         {/* Mobile Menu Button */}
         <button
-          className="lg:hidden p-2 hover:bg-slate-700/50 rounded-lg transition-all duration-200 z-50"
+          className="lg:hidden p-2 hover:bg-gray-800/50 rounded-lg transition-all duration-200 z-50"
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           aria-label="Toggle navigation menu"
         >
@@ -109,12 +109,12 @@ export default function Header() {
           <>
             {/* Overlay */}
             <div
-              className="fixed inset-0 bg-black/60 z-30 lg:hidden"
+              className="fixed inset-0 bg-black/70 z-30 lg:hidden"
               onClick={closeSidebar}
             />
 
             {/* Sidebar */}
-            <div className="fixed left-0 top-16 bottom-0 w-64 sm:w-72 bg-gradient-to-b from-slate-800 to-slate-900 border-r border-blue-500/30 lg:hidden z-40 animate-slideInLeft shadow-2xl flex flex-col">
+            <div className="fixed left-0 top-16 bottom-0 w-64 sm:w-72 bg-gradient-to-b from-gray-900 to-gray-950 border-r border-gray-700 lg:hidden z-40 animate-slideInLeft shadow-2xl flex flex-col">
               <nav className="p-4 space-y-2 overflow-y-auto flex-1">
                 <Link
                   to="/"
