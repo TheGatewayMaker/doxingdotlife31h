@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, Download, Play } from "lucide-react";
+import { addWatermarkToImage, addWatermarkToVideo } from "@/lib/watermark";
+import { toast } from "sonner";
 
 interface MediaFile {
   name: string;
