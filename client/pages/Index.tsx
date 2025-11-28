@@ -490,7 +490,7 @@ export default function Index() {
                 <div className="flex items-center gap-2 sm:gap-3 mb-2">
                   <Flame className="w-7 h-7 sm:w-8 sm:h-8 text-orange-500" />
                   <h2 className="text-4xl sm:text-5xl md:text-6xl font-black text-white">
-                    Results
+                    Trending
                   </h2>
                 </div>
                 <p className="text-[#979797] text-sm sm:text-base">
