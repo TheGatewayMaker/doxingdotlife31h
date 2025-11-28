@@ -550,8 +550,8 @@ export default function Index() {
                           {post.title}
                         </h3>
                         {post.nsfw && (
-                          <span className="inline-flex items-center gap-1 bg-[#0088CC] text-white px-2.5 py-1 rounded-md text-xs font-bold flex-shrink-0 whitespace-nowrap">
-                            🔞
+                          <span className="inline-flex items-center gap-1 bg-red-600 text-white px-2.5 py-1 rounded-md text-xs font-bold flex-shrink-0 whitespace-nowrap">
+                            NSFW
                           </span>
                         )}
                       </div>
