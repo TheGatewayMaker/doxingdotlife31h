@@ -51,30 +51,24 @@ export default function Header() {
             <HomeIcon className="w-5 h-5" />
             Home
           </Link>
-          <Link
-            to="/dox-anyone"
-            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all relative group"
-            style={{
-              background: "linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%)",
-            }}
-          >
+          <div className="relative group">
             <div
-              className="absolute inset-0 rounded-lg pointer-events-none"
+              className="absolute inset-0 rounded-lg blur-sm pointer-events-none"
               style={{
-                background: "conic-gradient(from 0deg, #60a5fa 0%, #3b82f6 25%, transparent 50%, #3b82f6 75%, #60a5fa 100%)",
-                padding: "2px",
-                WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                mask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)",
-                WebkitMaskComposite: "xor",
-                maskComposite: "exclude",
-                animation: "snakeBorder 3s linear infinite reverse",
+                background: "conic-gradient(from 270deg, #3b82f6, #60a5fa, #3b82f6)",
+                animation: "borderRotate 4s linear infinite reverse",
               }}
             />
-            <SearchAltIcon className="w-4 h-4" />
-            Dox Anyone
-          </Link>
+            <Link
+              to="/dox-anyone"
+              className="relative flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:to-blue-800 transition-all"
+            >
+              <SearchAltIcon className="w-4 h-4" />
+              Dox Anyone
+            </Link>
+          </div>
           <style>{`
-            @keyframes snakeBorder {
+            @keyframes borderRotate {
               0% { transform: rotate(0deg); }
               100% { transform: rotate(360deg); }
             }
