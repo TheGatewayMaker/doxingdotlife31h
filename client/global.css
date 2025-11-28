@@ -93,7 +93,7 @@
 }
 
 html {
-  background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #0f0f0f 100%);
+  background: #000000;
   color: hsl(var(--foreground));
   min-height: 100vh;
 }
@@ -105,7 +105,7 @@ html {
 
   body {
     @apply text-foreground;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 50%, #0f0f0f 100%);
+    background: #000000;
     min-height: 100vh;
   }
 
