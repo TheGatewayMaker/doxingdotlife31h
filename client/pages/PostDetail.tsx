@@ -122,14 +122,14 @@ export default function PostDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 text-white flex flex-col animate-fadeIn">
+    <div className="min-h-screen bg-gradient-to-b from-[#000000] via-[#1a1a1a] to-[#000000] text-white flex flex-col animate-fadeIn">
       <Header />
       <main className="flex-1 w-full">
         <div className="w-full px-4 sm:px-6 lg:px-8 py-6 sm:py-10 lg:py-12">
           {/* Back Button */}
           <button
             onClick={() => navigate("/")}
-            className="flex items-center gap-2 px-4 py-2 mb-8 text-gray-500 hover:text-gray-200 transition-all duration-200 font-semibold animate-fadeIn hover:translate-x-[-4px]"
+            className="flex items-center gap-2 px-4 py-2 mb-8 text-[#979797] hover:text-[#0088CC] transition-all duration-200 font-semibold animate-fadeIn hover:translate-x-[-4px]"
           >
             <svg
               className="w-5 h-5"
