@@ -53,33 +53,11 @@ export default function Header() {
           </Link>
           <Link
             to="/dox-anyone"
-            className="relative flex items-center gap-2 px-4 py-2 bg-gradient-to-br from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:to-blue-800 transition-all overflow-hidden"
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-all"
           >
-            <div
-              className="absolute inset-0 rounded-lg pointer-events-none"
-              style={{
-                background: `conic-gradient(
-                  from 0deg,
-                  transparent 0deg,
-                  transparent 45deg,
-                  #60a5fa 50deg,
-                  #3b82f6 55deg,
-                  #60a5fa 60deg,
-                  transparent 65deg,
-                  transparent 360deg
-                )`,
-                animation: "snakeLight 3s linear infinite reverse",
-              }}
-            />
-            <SearchAltIcon className="w-4 h-4 relative z-10" />
-            <span className="relative z-10">Dox Anyone</span>
+            <SearchAltIcon className="w-4 h-4" />
+            Dox Anyone
           </Link>
-          <style>{`
-            @keyframes snakeLight {
-              0% { transform: rotate(0deg); }
-              100% { transform: rotate(360deg); }
-            }
-          `}</style>
           {isAuthenticated && (
             <>
               <Link
