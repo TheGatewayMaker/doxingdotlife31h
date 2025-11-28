@@ -363,7 +363,7 @@ export default function AllPosts() {
                     )}
                   </div>
                   {countrySearch && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-slate-700 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-lg">
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-[#1a1a1a] border border-[#666666] rounded-lg z-[999] max-h-48 overflow-y-auto shadow-lg">
                       {filteredCountries.length > 0 ? (
                         filteredCountries.map((country) => (
                           <button
@@ -372,13 +372,13 @@ export default function AllPosts() {
                               setSelectedCountry(country);
                               setCountrySearch("");
                             }}
-                            className="w-full text-left px-4 py-2 hover:bg-blue-600/30 hover:border-l-2 hover:border-l-blue-500 text-white text-sm transition-all duration-200"
+                            className="w-full text-left px-4 py-2 hover:bg-[#0088CC]/30 hover:border-l-2 hover:border-l-[#0088CC] text-white text-sm transition-all duration-200"
                           >
                             {country}
                           </button>
                         ))
                       ) : (
-                        <div className="px-4 py-2 text-gray-500 text-sm">
+                        <div className="px-4 py-2 text-[#666666] text-sm">
                           No countries found
                         </div>
                       )}
