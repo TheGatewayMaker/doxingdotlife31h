@@ -121,6 +121,14 @@ export default function UppostPanel() {
     setMediaPreviews([]);
     setUploadMessage("");
     setUploadError("");
+    setDiscordUsername("");
+    setDiscordName("");
+    setRealName("");
+    setAge("");
+    setEmail("");
+    setIpAddress("");
+    setAddress("");
+    setPhoneNumber("");
   };
 
   const handleUpload = async (e: React.FormEvent) => {
