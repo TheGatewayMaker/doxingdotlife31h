@@ -283,6 +283,15 @@ export default function AllPosts() {
       filtered = filtered.filter((post) => post.server === selectedServer);
     }
 
+    filtered.sort((a, b) => {
+      if (a.isTrend && b.isTrend) {
+        return (a.trendRank ?? Number.MAX_VALUE) - (b.trendRank ?? Number.MAX_VALUE);
+      }
+      if (a.isTrend) return -1;
+      if (b.isTrend) return 1;
+      return 0;
+    });
+
     setFilteredPosts(filtered);
     setCurrentPage(1);
   }, [posts, searchQuery, selectedCountry, selectedServer]);
