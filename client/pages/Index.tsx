@@ -343,8 +343,8 @@ export default function Index() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                 {/* Country Dropdown */}
                 <div className="relative group">
-                  <label className="text-sm font-bold text-foreground block mb-3 flex items-center gap-2">
-                    <GlobeIcon className="w-4 h-4 text-muted-foreground" />
+                  <label className="text-xs sm:text-sm font-bold text-gray-300 block mb-2 flex items-center gap-2">
+                    <GlobeIcon className="w-4 h-4 text-blue-400" />
                     By Country
                   </label>
                   <div className="relative">
@@ -355,7 +355,7 @@ export default function Index() {
                       }
                       value={countrySearch}
                       onChange={(e) => setCountrySearch(e.target.value)}
-                      className="w-full px-4 py-3 pr-10 bg-card border border-border hover:border-muted rounded-lg text-foreground placeholder-muted-foreground focus:outline-none focus:ring-2 focus:ring-muted/50 focus:border-muted text-sm transition-all"
+                      className="w-full px-4 py-2.5 sm:py-3 pr-10 bg-slate-800/60 border border-blue-500/30 hover:border-blue-500/50 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 text-sm transition-all"
                     />
                     {selectedCountry && (
                       <button
@@ -363,15 +363,15 @@ export default function Index() {
                           setSelectedCountry("");
                           setCountrySearch("");
                         }}
-                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        className="absolute top-1/2 right-3 transform -translate-y-1/2 text-gray-400 hover:text-white transition-colors"
                         title="Clear selection"
                       >
-                        <CloseIcon className="w-5 h-5" />
+                        <CloseIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                       </button>
                     )}
                   </div>
                   {countrySearch && (
-                    <div className="absolute top-full left-0 right-0 mt-2 bg-card border border-border rounded-lg z-[999] max-h-48 overflow-y-auto shadow-lg">
+                    <div className="absolute top-full left-0 right-0 mt-2 bg-slate-800 border border-blue-500/30 rounded-lg z-[999] max-h-48 overflow-y-auto shadow-xl">
                       {filteredCountries.length > 0 ? (
                         filteredCountries.map((country) => (
                           <button
@@ -380,13 +380,13 @@ export default function Index() {
                               setSelectedCountry(country);
                               setCountrySearch("");
                             }}
-                            className="w-full text-left px-4 py-2 hover:bg-muted text-foreground text-sm transition-all duration-200"
+                            className="w-full text-left px-4 py-2.5 hover:bg-blue-600/30 text-white text-sm transition-all duration-200 border-b border-slate-700/50 last:border-b-0"
                           >
                             {country}
                           </button>
                         ))
                       ) : (
-                        <div className="px-4 py-2 text-muted-foreground text-sm">
+                        <div className="px-4 py-3 text-gray-400 text-sm text-center">
                           No countries found
                         </div>
                       )}
