@@ -330,7 +330,7 @@ export default function Index() {
 
             {/* Filters Section */}
             <div className="animate-fadeIn" style={{ animationDelay: "0.3s" }}>
-              <p className="text-xs sm:text-sm font-bold text-gray-500 uppercase tracking-wider mb-4">
+              <p className="text-xs sm:text-sm font-bold text-[#666666] uppercase tracking-wider mb-4">
                 Refine Your Search
               </p>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
