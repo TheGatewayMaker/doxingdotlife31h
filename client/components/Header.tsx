@@ -59,7 +59,7 @@ export default function Header() {
           </Link>
           <Link
             to="/dox-anyone"
-            className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white font-semibold rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-200 shadow-md hover:shadow-lg"
+            className="flex items-center gap-2 px-4 py-2 bg-gray-700 text-white font-semibold rounded-lg hover:bg-gray-600 transition-all duration-200 shadow-md hover:shadow-lg"
           >
             <SearchAltIcon className="w-4 h-4" />
             <span>Search</span>
@@ -75,14 +75,14 @@ export default function Header() {
               </Link>
               <Link
                 to="/admin-panel"
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-yellow-600 to-yellow-700 text-white font-semibold rounded-lg hover:from-yellow-700 hover:to-yellow-800 transition-all duration-200"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white font-semibold rounded-lg hover:bg-gray-500 transition-all duration-200"
               >
                 <SettingsIcon className="w-4 h-4" />
                 <span className="hidden xl:inline">Admin</span>
               </Link>
               <button
                 onClick={handleLogout}
-                className="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-red-600 to-red-700 text-white font-semibold rounded-lg hover:from-red-700 hover:to-red-800 transition-all duration-200"
+                className="flex items-center gap-2 px-4 py-2 bg-gray-500 text-white font-semibold rounded-lg hover:bg-gray-400 transition-all duration-200"
               >
                 <LogOut className="w-4 h-4" />
                 <span className="hidden xl:inline">Logout</span>
