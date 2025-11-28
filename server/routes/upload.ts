@@ -24,20 +24,43 @@ export const handleUpload: RequestHandler = async (req, res) => {
       | { [fieldname: string]: Express.Multer.File[] }
       | undefined;
 
+    // Validate required fields with detailed logging
     if (!title || !description || !files?.media || !files?.thumbnail) {
       console.error("Missing required fields", {
         title: !!title,
         description: !!description,
         media: !!files?.media,
-        mediaCount: files?.media?.length,
+        mediaCount: Array.isArray(files?.media) ? files.media.length : 0,
         thumbnail: !!files?.thumbnail,
       });
       res.status(400).json({ error: "Missing required fields" });
       return;
     }
 
+    // Ensure media is an array
+    if (!Array.isArray(files.media)) {
+      console.error("Media files are not in array format", {
+        mediaType: typeof files.media,
+        mediaKeys: Object.keys(files.media || {}),
+      });
+      res.status(400).json({ error: "Media files format is invalid" });
+      return;
+    }
+
     if (files.media.length === 0) {
       res.status(400).json({ error: "At least one media file is required" });
+      return;
+    }
+
+    // Validate thumbnail is an array with at least one file
+    if (!Array.isArray(files.thumbnail) || files.thumbnail.length === 0) {
+      console.error("Thumbnail validation failed", {
+        thumbnailType: typeof files.thumbnail,
+        thumbnailLength: Array.isArray(files.thumbnail)
+          ? files.thumbnail.length
+          : 0,
+      });
+      res.status(400).json({ error: "Thumbnail is required" });
       return;
     }
 
