@@ -113,11 +113,17 @@ export function createServer() {
     next: express.NextFunction,
   ) => {
     const timeout = 10 * 60 * 1000; // 10 minutes
-    req.setTimeout(timeout);
-    res.setTimeout(timeout);
+
+    // Set timeout on the underlying socket, not the request/response objects
+    if (req.socket) {
+      req.socket.setTimeout(timeout);
+    }
+    if (res.socket) {
+      res.socket.setTimeout(timeout);
+    }
 
     // Handle timeout errors
-    req.on("timeout", () => {
+    const handleTimeout = () => {
       console.error("Request timeout for upload");
       if (!res.headersSent) {
         res.status(408).json({
@@ -125,17 +131,14 @@ export function createServer() {
           details: "Upload took too long to complete",
         });
       }
-    });
+    };
 
-    res.on("timeout", () => {
-      console.error("Response timeout for upload");
-      if (!res.headersSent) {
-        res.status(408).json({
-          error: "Response timeout",
-          details: "Server took too long to respond",
-        });
-      }
-    });
+    if (req.socket) {
+      req.socket.on("timeout", handleTimeout);
+    }
+    if (res.socket) {
+      res.socket.on("timeout", handleTimeout);
+    }
 
     next();
   };
