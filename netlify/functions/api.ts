@@ -85,6 +85,8 @@ const getServerlessHandler = () => {
 };
 
 export const handler = async (event: any, context: any) => {
+  let result: any;
+
   try {
     // Set a longer timeout for the context
     context.callbackWaitsForEmptyEventLoop = false;
@@ -92,16 +94,52 @@ export const handler = async (event: any, context: any) => {
     console.log(
       `[${new Date().toISOString()}] Incoming ${event.httpMethod} ${event.path}`,
     );
+    console.log(
+      `[${new Date().toISOString()}] Content-Type: ${event.headers["content-type"] || "unknown"}`,
+    );
 
-    // Add NETLIFY flag for serverless environment detection
+    // NETLIFY flag should already be set at module init, but ensure it's set
     if (!process.env.NETLIFY) {
       process.env.NETLIFY = "true";
     }
 
-    const handler = getServerlessHandler();
-    const result = await handler(event, context);
+    try {
+      const serverlessHandler = getServerlessHandler();
+      result = await serverlessHandler(event, context);
+    } catch (serverError) {
+      const serverErrorMessage =
+        serverError instanceof Error ? serverError.message : String(serverError);
+      console.error(
+        `[${new Date().toISOString()}] ❌ Serverless handler error:`,
+        serverErrorMessage,
+      );
+      console.error("Serverless handler error details:", {
+        message: serverErrorMessage,
+        stack: serverError instanceof Error ? serverError.stack : undefined,
+        event: {
+          httpMethod: event.httpMethod,
+          path: event.path,
+        },
+      });
 
-    // Ensure result is always valid JSON
+      // Return error response from handler error
+      result = {
+        statusCode: 500,
+        body: JSON.stringify({
+          error: "Server error",
+          details:
+            process.env.NODE_ENV === "development"
+              ? serverErrorMessage
+              : "An error occurred processing your request.",
+        }),
+        headers: {
+          "Content-Type": "application/json",
+          "Cache-Control": "no-cache, no-store, must-revalidate",
+        },
+      };
+    }
+
+    // Ensure result is always valid JSON with proper headers
     if (result && typeof result === "object") {
       if (!result.headers) {
         result.headers = {};
@@ -109,24 +147,38 @@ export const handler = async (event: any, context: any) => {
       if (!result.headers["Content-Type"]) {
         result.headers["Content-Type"] = "application/json";
       }
+
+      // Ensure body is a string if it's an API response
+      if (
+        result.body &&
+        typeof result.body !== "string" &&
+        typeof result.body === "object"
+      ) {
+        result.body = JSON.stringify(result.body);
+      }
     }
+
+    console.log(
+      `[${new Date().toISOString()}] Outgoing response: ${result?.statusCode || "unknown"} for ${event.httpMethod} ${event.path}`,
+    );
 
     return result;
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : String(error);
     console.error(
-      `[${new Date().toISOString()}] ❌ Handler error:`,
+      `[${new Date().toISOString()}] ❌ Critical handler error:`,
       errorMessage,
     );
-    console.error("Error details:", {
+    console.error("Critical error details:", {
       message: errorMessage,
       stack: error instanceof Error ? error.stack : undefined,
       event: {
-        httpMethod: event.httpMethod,
-        path: event.path,
+        httpMethod: event?.httpMethod,
+        path: event?.path,
       },
     });
 
+    // Return a guaranteed error response
     return {
       statusCode: 500,
       body: JSON.stringify({
