@@ -196,7 +196,8 @@ export const handleUpload: RequestHandler = async (req, res, next) => {
             throw new Error(`File ${i + 1} is missing or has no buffer data`);
           }
 
-          const sanitizedName = mediaFile.originalname || `media-${i + 1}`;
+          const originalName = mediaFile.originalname || `media-${i + 1}`;
+          const sanitizedName = sanitizeFileName(originalName);
           const mediaFileName = `${Date.now()}-${i}-${sanitizedName}`;
 
           console.log(
