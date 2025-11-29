@@ -11,6 +11,7 @@ import {
   handleUpdatePost,
 } from "./routes/admin";
 import { handleLogout, handleCheckAuth, authMiddleware } from "./routes/auth";
+import { validateR2Configuration } from "./utils/r2-storage";
 
 const upload = multer({
   storage: multer.memoryStorage(),
