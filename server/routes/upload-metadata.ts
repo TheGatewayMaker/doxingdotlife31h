@@ -14,7 +14,7 @@ interface UploadMetadataRequest {
   city?: string;
   server?: string;
   nsfw?: string | boolean;
-  thumbnailUrl: string;
+  thumbnailFileName: string;
   mediaFiles: string[];
   isTrend?: string | boolean;
   trendRank?: string;
