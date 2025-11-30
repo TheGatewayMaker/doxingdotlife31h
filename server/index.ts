@@ -13,10 +13,18 @@ import {
 import { handleLogout, handleCheckAuth, authMiddleware } from "./routes/auth";
 import { validateR2Configuration } from "./utils/r2-storage";
 
+// On Netlify Functions, use smaller limits due to request size constraints
+// Local dev can handle larger files
+const isNetlify = process.env.NETLIFY === "true";
+const MAX_FILE_SIZE = isNetlify
+  ? 100 * 1024 * 1024 // 100MB per file on Netlify
+  : 500 * 1024 * 1024; // 500MB per file locally
+
 const upload = multer({
   storage: multer.memoryStorage(),
   limits: {
-    fileSize: 500 * 1024 * 1024, // 500MB per file for long videos
+    fileSize: MAX_FILE_SIZE,
+    fieldSize: MAX_FILE_SIZE, // Also set field size limit
   },
 });
 
