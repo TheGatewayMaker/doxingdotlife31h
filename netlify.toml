@@ -3,11 +3,8 @@
   publish = "dist/spa"
   functions = "netlify/functions"
 
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
-  included_files = ["server/**/*", "shared/**/*"]
-  # removed `timeout = 26` here because Netlify expects [functions.timeout] to be an object
+# Global defaults removed to avoid redefinition conflicts.
+# Netlify will still pick up "netlify/functions" as your functions directory.
 
 [[functions]]
   name = "api"
