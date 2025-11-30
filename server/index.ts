@@ -231,6 +231,30 @@ export function createServer() {
     "/api/upload",
     uploadTimeout,
     authMiddleware,
+    // Pre-check: Validate request size early, especially for Netlify Functions
+    (req, res, next) => {
+      const contentLength = parseInt(
+        req.headers["content-length"] || "0",
+        10,
+      );
+      const isNetlify = process.env.NETLIFY === "true";
+      // Netlify Functions have practical limits around 250MB for the entire request
+      // but real-world performance degrades significantly above 50MB
+      const maxSize = isNetlify ? 200 * 1024 * 1024 : 1024 * 1024 * 1024;
+
+      console.log(
+        `[${new Date().toISOString()}] Upload request content-length: ${(contentLength / 1024 / 1024).toFixed(2)}MB (max: ${(maxSize / 1024 / 1024).toFixed(2)}MB on ${isNetlify ? "NETLIFY" : "LOCAL"})`,
+      );
+
+      if (contentLength > maxSize) {
+        return res.status(413).json({
+          error: "Request too large",
+          details: `Total upload size (${(contentLength / 1024 / 1024).toFixed(2)}MB) exceeds maximum allowed (${(maxSize / 1024 / 1024).toFixed(2)}MB). ${isNetlify ? "Please upload fewer or smaller files." : ""}`,
+        });
+      }
+
+      next();
+    },
     (req, res, next) => {
       try {
         upload.fields([
