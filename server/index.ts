@@ -129,13 +129,6 @@ export function createServer() {
   app.post("/api/auth/logout", handleLogout);
   app.get("/api/auth/check", handleCheckAuth);
 
-  // Presigned URL generation route (for R2 direct uploads)
-  app.post(
-    "/api/generate-upload-urls",
-    authMiddleware,
-    asyncHandler(handleGenerateUploadUrls),
-  );
-
   // Forum API routes
   // Longer timeout for upload endpoint (10 minutes) to handle large files and multiple attachments
   const uploadTimeout = (
