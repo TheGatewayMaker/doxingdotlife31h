@@ -39,14 +39,17 @@ const initializeFirebaseAdmin = () => {
   }
 
   // Validate private key format
-  if (!privateKey.includes("BEGIN PRIVATE KEY") || !privateKey.includes("END PRIVATE KEY")) {
+  if (
+    !privateKey.includes("BEGIN PRIVATE KEY") ||
+    !privateKey.includes("END PRIVATE KEY")
+  ) {
     console.error(
       "Firebase private key format is invalid - missing BEGIN/END markers",
       {
         hasBegin: privateKey.includes("BEGIN PRIVATE KEY"),
         hasEnd: privateKey.includes("END PRIVATE KEY"),
         keyStart: privateKey.substring(0, 50),
-      }
+      },
     );
     return null;
   }
@@ -60,13 +63,13 @@ const initializeFirebaseAdmin = () => {
       }),
     });
     console.log(
-      `[${new Date().toISOString()}] ✅ Firebase Admin SDK initialized for project: ${projectId}`
+      `[${new Date().toISOString()}] ✅ Firebase Admin SDK initialized for project: ${projectId}`,
     );
     return firebaseApp;
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
     console.error(
-      `[${new Date().toISOString()}] ❌ Failed to initialize Firebase Admin SDK: ${errorMsg}`
+      `[${new Date().toISOString()}] ❌ Failed to initialize Firebase Admin SDK: ${errorMsg}`,
     );
     return null;
   }
@@ -86,7 +89,9 @@ export const verifyFirebaseToken = async (
     const app = initializeFirebaseAdmin();
 
     if (!app) {
-      console.error("Firebase Admin SDK is not initialized - check configuration");
+      console.error(
+        "Firebase Admin SDK is not initialized - check configuration",
+      );
       throw new Error("Firebase Admin SDK not initialized");
     }
 
@@ -114,7 +119,7 @@ export const verifyFirebaseToken = async (
     }
 
     console.log(
-      `[${new Date().toISOString()}] Token verified - UID: ${decodedToken.uid}, Email: ${email}, Authorized: ${isAuthorized}`
+      `[${new Date().toISOString()}] Token verified - UID: ${decodedToken.uid}, Email: ${email}, Authorized: ${isAuthorized}`,
     );
 
     return {
@@ -125,7 +130,7 @@ export const verifyFirebaseToken = async (
   } catch (error) {
     const errorMsg = error instanceof Error ? error.message : String(error);
     console.error(
-      `[${new Date().toISOString()}] Token verification failed: ${errorMsg}`
+      `[${new Date().toISOString()}] Token verification failed: ${errorMsg}`,
     );
     throw new Error("Invalid or expired token");
   }
