@@ -1,3 +1,11 @@
+# Environment Variables - NEVER commit these to git
+.env
+.env.local
+.env.*.local
+.env.production
+.env.development
+.env.test
+
 # Logs
 logs
 *.log
@@ -7,7 +15,10 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependencies
 node_modules
+
+# Build outputs
 dist
 dist-ssr
 *.local
@@ -23,5 +34,23 @@ dist-ssr
 *.sln
 *.sw?
 
+# Config
 .config/
-# .env is tracked (repo will be made private - credentials committed intentionally)
+
+# IDE
+*.iml
+*.sublime-*
+
+# OS
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Firebase and sensitive credentials
+serviceAccountKey.json
+*.pem
+*.key
+*.crt
