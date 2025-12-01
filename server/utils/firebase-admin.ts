@@ -86,6 +86,10 @@ export const verifyFirebaseToken = async (
   isAuthorized: boolean;
 }> => {
   try {
+    console.log(
+      `[${new Date().toISOString()}] Starting token verification... Token length: ${idToken.length}`,
+    );
+
     const app = initializeFirebaseAdmin();
 
     if (!app) {
@@ -95,16 +99,32 @@ export const verifyFirebaseToken = async (
       throw new Error("Firebase Admin SDK not initialized");
     }
 
+    console.log(
+      `[${new Date().toISOString()}] Firebase Admin SDK initialized, verifying token...`,
+    );
+
     const decodedToken = await admin.auth().verifyIdToken(idToken);
+
+    console.log(
+      `[${new Date().toISOString()}] Token decoded successfully. UID: ${decodedToken.uid}, Email: ${decodedToken.email}`,
+    );
 
     const email = decodedToken.email;
     const authorizedEmails = process.env.VITE_AUTHORIZED_EMAILS || "";
+
+    console.log(
+      `[${new Date().toISOString()}] Authorized emails from env: "${authorizedEmails}"`,
+    );
 
     // Parse authorized emails from environment variable
     const emailList = authorizedEmails
       .split(",")
       .map((e) => e.trim().toLowerCase())
       .filter((e) => e.length > 0);
+
+    console.log(
+      `[${new Date().toISOString()}] Parsed email list: ${JSON.stringify(emailList)}`,
+    );
 
     let isAuthorized = false;
 
@@ -132,6 +152,7 @@ export const verifyFirebaseToken = async (
     console.error(
       `[${new Date().toISOString()}] Token verification failed: ${errorMsg}`,
     );
+    console.error("Full error details:", error);
     throw new Error("Invalid or expired token");
   }
 };
