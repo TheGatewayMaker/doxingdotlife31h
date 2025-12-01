@@ -10,27 +10,28 @@ const initializeFirebaseAdmin = () => {
 
   const projectId = process.env.FIREBASE_PROJECT_ID;
   let privateKey = process.env.FIREBASE_PRIVATE_KEY;
-
-  // Handle both literal \n and actual newlines
-  if (privateKey) {
-    // If the key contains literal \n (backslash + n), replace with actual newlines
-    if (privateKey.includes("\\n")) {
-      privateKey = privateKey.replace(/\\n/g, "\n");
-    }
-  }
-
   const clientEmail = process.env.FIREBASE_CLIENT_EMAIL;
 
+  // Validate all required config
   if (!projectId || !privateKey || !clientEmail) {
     console.error(
-      "Firebase Admin SDK configuration missing:",
+      "Firebase Admin SDK configuration missing - cannot initialize",
       {
         hasProjectId: !!projectId,
         hasPrivateKey: !!privateKey,
         hasClientEmail: !!clientEmail,
       },
     );
-    // Return a mock app for development
+    return null;
+  }
+
+  // Handle both literal \n (from environment strings) and actual newlines
+  // The environment may have the key as a string with literal \n characters
+  privateKey = privateKey.replace(/\\n/g, "\n");
+
+  // Validate private key format
+  if (!privateKey.includes("BEGIN PRIVATE KEY") || !privateKey.includes("END PRIVATE KEY")) {
+    console.error("Firebase private key format is invalid - missing BEGIN/END markers");
     return null;
   }
 
@@ -42,10 +43,15 @@ const initializeFirebaseAdmin = () => {
         clientEmail,
       }),
     });
-    console.log(`[${new Date().toISOString()}] Firebase Admin SDK initialized for project: ${projectId}`);
+    console.log(
+      `[${new Date().toISOString()}] ✅ Firebase Admin SDK initialized for project: ${projectId}`
+    );
     return firebaseApp;
   } catch (error) {
-    console.error("Failed to initialize Firebase Admin SDK:", error instanceof Error ? error.message : error);
+    const errorMsg = error instanceof Error ? error.message : String(error);
+    console.error(
+      `[${new Date().toISOString()}] ❌ Failed to initialize Firebase Admin SDK: ${errorMsg}`
+    );
     return null;
   }
 };
