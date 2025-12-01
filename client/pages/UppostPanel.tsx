@@ -244,10 +244,9 @@ export default function UppostPanel() {
       // Step 3: Store metadata in server
       setUploadMessage("Finalizing post...");
 
-      const thumbnailFileName = `thumbnail-${Date.now()}`;
-      const mediaFileNames = mediaFiles.map(
-        (_, index) => `${Date.now()}-${index}-${mediaFiles[index].name}`,
-      );
+      // Extract the actual file names returned from presigned URLs
+      const thumbnailFileName = presignedUrls[0].fileName;
+      const mediaFileNames = presignedUrls.slice(1).map((url) => url.fileName);
 
       const metadataResponse = await fetch("/api/upload-metadata", {
         method: "POST",
