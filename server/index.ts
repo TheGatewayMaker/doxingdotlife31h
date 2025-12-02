@@ -134,7 +134,8 @@ export function createServer() {
     res: express.Response,
     next: express.NextFunction,
   ) => {
-    const timeout = 30 * 1000; // 30 seconds for metadata operations
+    // 10 minutes for large file uploads (7-8 photos)
+    const timeout = 10 * 60 * 1000;
 
     try {
       if (req.socket) {
