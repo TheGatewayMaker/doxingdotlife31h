@@ -5,6 +5,9 @@ let firebaseApp: admin.app.App;
 
 const initializeFirebaseAdmin = () => {
   if (admin.apps.length > 0) {
+    console.log(
+      `[${new Date().toISOString()}] Firebase Admin SDK already initialized`,
+    );
     return admin.app();
   }
 
@@ -17,9 +20,9 @@ const initializeFirebaseAdmin = () => {
     console.error(
       "Firebase Admin SDK configuration missing - cannot initialize",
       {
-        hasProjectId: !!projectId,
-        hasPrivateKey: !!privateKey,
-        hasClientEmail: !!clientEmail,
+        projectId: projectId || "MISSING",
+        privateKey: privateKey ? `${privateKey.length} chars` : "MISSING",
+        clientEmail: clientEmail || "MISSING",
       },
     );
     return null;
@@ -38,6 +41,9 @@ const initializeFirebaseAdmin = () => {
     privateKey = privateKey.slice(1, -1);
   }
 
+  // After processing, revalidate the newlines are actually in the key
+  privateKey = privateKey.trim();
+
   // Validate private key format
   if (
     !privateKey.includes("BEGIN PRIVATE KEY") ||
@@ -48,13 +54,20 @@ const initializeFirebaseAdmin = () => {
       {
         hasBegin: privateKey.includes("BEGIN PRIVATE KEY"),
         hasEnd: privateKey.includes("END PRIVATE KEY"),
-        keyStart: privateKey.substring(0, 50),
+        keyStart: privateKey.substring(0, 80),
+        keyLength: privateKey.length,
       },
     );
     return null;
   }
 
   try {
+    console.log(
+      `[${new Date().toISOString()}] Initializing Firebase Admin SDK with project: ${projectId}`,
+    );
+    console.log(`Client email: ${clientEmail}`);
+    console.log(`Private key length: ${privateKey.length} chars`);
+
     firebaseApp = admin.initializeApp({
       credential: admin.credential.cert({
         projectId,
@@ -63,7 +76,7 @@ const initializeFirebaseAdmin = () => {
       }),
     });
     console.log(
-      `[${new Date().toISOString()}] ✅ Firebase Admin SDK initialized for project: ${projectId}`,
+      `[${new Date().toISOString()}] ✅ Firebase Admin SDK initialized successfully for project: ${projectId}`,
     );
     return firebaseApp;
   } catch (error) {
@@ -71,6 +84,7 @@ const initializeFirebaseAdmin = () => {
     console.error(
       `[${new Date().toISOString()}] ❌ Failed to initialize Firebase Admin SDK: ${errorMsg}`,
     );
+    console.error("Error details:", error);
     return null;
   }
 };
