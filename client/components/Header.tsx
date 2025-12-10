@@ -17,13 +17,16 @@ export default function Header() {
 
   useEffect(() => {
     if (isSidebarOpen) {
-      document.body.classList.add("overflow-hidden");
+      document.body.style.overflow = "hidden";
+      document.documentElement.style.overflow = "hidden";
     } else {
-      document.body.classList.remove("overflow-hidden");
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     }
 
     return () => {
-      document.body.classList.remove("overflow-hidden");
+      document.body.style.overflow = "";
+      document.documentElement.style.overflow = "";
     };
   }, [isSidebarOpen]);
 
