@@ -382,8 +382,8 @@ export default function AdminPanel() {
         </div>
 
         {/* Posts Management Section */}
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-          <div className="mb-6 sm:mb-8 animate-slideInUp">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-6 md:py-8">
+          <div className="mb-4 sm:mb-6 md:mb-8 animate-slideInUp">
             {isLoadingPosts ? (
               <>
                 <div className="flex items-center gap-3 mb-3">
