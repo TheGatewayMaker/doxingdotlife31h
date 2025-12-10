@@ -143,8 +143,11 @@ export default function Header() {
 
             {/* Sidebar */}
             <div
+              id="mobile-menu"
               className="fixed left-0 top-16 right-0 max-h-[calc(100vh-4rem)] w-full bg-[#0a0a0a] border-b border-[#666666] lg:hidden z-40 animate-slideInDown shadow-2xl flex flex-col overflow-hidden"
               style={{ animationDuration: "0.3s" }}
+              role="navigation"
+              aria-label="Mobile navigation"
             >
               <nav className="p-4 space-y-1 overflow-y-auto flex-1">
                 <Link
