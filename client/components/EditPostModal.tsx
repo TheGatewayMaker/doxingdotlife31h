@@ -129,7 +129,7 @@ export default function EditPostModal({
         headers: {
           "Content-Type": "application/json",
         },
-        credentials: "include", // Send session cookie
+        credentials: "include",
         body: JSON.stringify({
           title: title.trim(),
           description: description.trim(),
@@ -147,16 +147,21 @@ export default function EditPostModal({
       });
 
       if (!response.ok) {
-        throw new Error("Failed to update post");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to update post");
       }
 
       const result = await response.json();
-      onUpdate(result.post);
+      if (result.post) {
+        onUpdate(result.post);
+      }
       toast.success("Post updated successfully");
       onClose();
     } catch (error) {
       console.error("Error updating post:", error);
-      toast.error("Failed to update post");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to update post",
+      );
     } finally {
       setIsSaving(false);
     }

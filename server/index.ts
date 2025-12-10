@@ -58,7 +58,11 @@ export function createServer() {
   // Middleware - order matters, apply parsers first
   app.use(
     cors({
-      origin: "*",
+      origin: (origin, callback) => {
+        // Allow requests from any origin (development-friendly)
+        // In production, specify exact origins: ['https://example.com', 'https://app.example.com']
+        callback(null, true);
+      },
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Content-Type", "Authorization"],
       credentials: true, // Allow cookies to be sent

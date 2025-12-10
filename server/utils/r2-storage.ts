@@ -15,6 +15,8 @@ interface PostMetadata {
   city: string;
   server: string;
   nsfw?: boolean;
+  isTrend?: boolean;
+  trendRank?: number;
   mediaFiles: string[];
   createdAt: string;
 }

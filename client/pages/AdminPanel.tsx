@@ -193,11 +193,12 @@ export default function AdminPanel() {
 
       const response = await fetch(`/api/posts/${deletingPostId}`, {
         method: "DELETE",
-        credentials: "include", // Send session cookie
+        credentials: "include",
       });
 
       if (!response.ok) {
-        throw new Error("Failed to delete post");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to delete post");
       }
 
       setPosts((prevPosts) =>
@@ -206,7 +207,9 @@ export default function AdminPanel() {
       toast.success("Post deleted successfully");
     } catch (error) {
       console.error("Error deleting post:", error);
-      toast.error("Failed to delete post");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to delete post",
+      );
     } finally {
       setIsDeletingPost(false);
       setDeletingPostId(null);

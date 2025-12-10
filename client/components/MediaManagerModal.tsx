@@ -66,12 +66,13 @@ export default function MediaManagerModal({
         `/api/posts/${post.id}/media/${encodeURIComponent(deletingFileName)}`,
         {
           method: "DELETE",
-          credentials: "include", // Send session cookie
+          credentials: "include",
         },
       );
 
       if (!response.ok) {
-        throw new Error("Failed to delete media file");
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.error || "Failed to delete media file");
       }
 
       const updatedFiles = mediaFiles.filter(
@@ -87,7 +88,9 @@ export default function MediaManagerModal({
       toast.success("Media file deleted successfully");
     } catch (error) {
       console.error("Error deleting media file:", error);
-      toast.error("Failed to delete media file");
+      toast.error(
+        error instanceof Error ? error.message : "Failed to delete media file",
+      );
     } finally {
       setIsDeletingFile(false);
       setDeletingFileName(null);

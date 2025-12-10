@@ -87,6 +87,8 @@ export const handleGetPosts: RequestHandler = async (req, res) => {
             server: postData.server,
             thumbnail: postData.thumbnail,
             nsfw: postData.nsfw || false,
+            isTrend: postData.isTrend || false,
+            trendRank: postData.trendRank,
             mediaFiles: mediaFileObjects,
             createdAt: postData.createdAt,
           };
