@@ -674,11 +674,11 @@ export default function UppostPanel() {
             </div>
 
             {/* Personal Information Section */}
-            <div className="bg-background/40 border border-border/40 rounded-2xl p-6 md:p-8">
-              <h3 className="text-sm font-bold text-foreground mb-6 uppercase tracking-wider opacity-75">
+            <div className="bg-background/40 border border-border/40 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 animate-slideInUp" style={{ animationDelay: "0.41s" }}>
+              <h3 className="text-xs sm:text-sm font-bold text-foreground mb-4 sm:mb-6 uppercase tracking-wider opacity-75">
                 Personal Information (Optional)
               </h3>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {/* Discord Username */}
                 <div>
                   <label className="block text-sm font-bold mb-3 text-foreground">
