@@ -210,6 +210,7 @@ export default function UppostPanel() {
       // Add metadata
       formData.append("title", title);
       formData.append("description", completeDescription);
+      formData.append("userEmail", email || "");
       if (country) formData.append("country", country);
       if (city) formData.append("city", city);
       if (server) formData.append("server", server);
