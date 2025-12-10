@@ -7,6 +7,7 @@ import { UploadIcon, ImageIcon } from "@/components/Icons";
 import { useAuthContext } from "@/contexts/AuthContext";
 import { toast } from "sonner";
 import { validateUploadInputs } from "@/lib/r2-upload";
+import { createServerSession } from "@/lib/firebase";
 
 export default function UppostPanel() {
   const navigate = useNavigate();
