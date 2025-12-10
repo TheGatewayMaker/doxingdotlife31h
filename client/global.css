@@ -107,6 +107,11 @@ html {
     @apply text-foreground;
     background: #000000;
     min-height: 100vh;
+    transition: overflow 0.2s ease;
+  }
+
+  body.overflow-hidden {
+    overflow: hidden;
   }
 
   h1,
