@@ -469,7 +469,7 @@ export default function AdminPanel() {
               {/* Pagination */}
               {totalPages > 1 && (
                 <div
-                  className="flex flex-col sm:flex-row flex-wrap justify-center items-center gap-2 sm:gap-3 animate-slideInUp pt-6 border-t border-border/40"
+                  className="flex flex-col xs:flex-row flex-wrap justify-center items-center gap-2 animate-slideInUp pt-4 sm:pt-6 border-t border-border/40 overflow-x-auto"
                   style={{ animationDelay: "0.4s" }}
                 >
                   <button
